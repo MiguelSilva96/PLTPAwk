@@ -1,54 +1,54 @@
 #!/usr/bin/gawk -f
 
 BEGIN {
-	FS = "[<>]";
-	fmtEntradas = "\tDia %s: %d (%.2f€)\n";
-	fmtTotais = "\tTotal gasto apenas em %s: %.2f€\n";
+    FS = "[<>]";
+    fmtEntradas = "\tDia %s: %d (%.2f€)\n";
+    fmtTotais = "\tTotal gasto apenas em %s: %.2f€\n";
 }
 
 $2~/DATA_ENTRADA/ && $3~/[0-9-]+/ {
-	dias[$3]++;
-	ultDia = $3;
+    dias[$3]++;
+    ultDia = $3;
 }
 
 $4~/\/SAIDA/ {
-	locaisSaida[$3]++;
+    locaisSaida[$3]++;
 }
 
 $4~/\/ENTRADA/ {
-	locaisEntra[$3]++;
+    locaisEntra[$3]++;
 }
 
 $2~/IMPORTANCIA/ {
-	gsub(",",".", $3);
-	totalGasto += $3;
-	ultimoGasto = $3;
-	totalDias[ultDia] += $3;
+    gsub(",",".", $3);
+    totalGasto += $3;
+    ultimoGasto = $3;
+    totalDias[ultDia] += $3;
 }
 
 $2~/VALOR_DESCONTO/ {
-	gsub(",", ".", $3);
-	totalGasto  -= $3;
-	ultimoGasto -= $3;
-	totalDias[ultDia] -= $3;
+    gsub(",", ".", $3);
+    totalGasto  -= $3;
+    ultimoGasto -= $3;
+    totalDias[ultDia] -= $3;
 }
 
 $2~/TIPO/ {
-	totalLocais[$3] += ultimoGasto;
+    totalLocais[$3] += ultimoGasto;
 }
 
 END {
-	print "Nº de 'entradas' em cada dia do mês:";
-	for (i in dias) 
-		printf(fmtEntradas, i, dias[i], totalDias[i]);
+    print "Nº de 'entradas' em cada dia do mês:";
+    for (i in dias) 
+        printf(fmtEntradas, i, dias[i], totalDias[i]);
 
-	print "Locais de ’saída’:";
-	for (i in locaisSaida)
-			print "\t"i, "("locaisSaida[i]")";
+    print "Locais de ’saída’:";
+    for (i in locaisSaida)
+        print "\t"i, "("locaisSaida[i]")";
 
-	print "Total gasto no mês:";
-	print "\tTotal:", totalGasto"€";
+    print "Total gasto no mês:";
+    print "\tTotal:", totalGasto"€";
 
-	for(i in totalLocais)
-		printf(fmtTotais, i, totalLocais[i]);
+    for(i in totalLocais)
+        printf(fmtTotais, i, totalLocais[i]);
 }

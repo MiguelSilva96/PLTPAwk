@@ -2,11 +2,12 @@
 
 BEGIN {
 	FS = "[<>]";
-	strOut = "\tDia ";
+	format = "\tDia %s: %d (%.2f€)\n";
 }
 
-$2~/DATA_ENTRADA/ && $3~/[0-9]+/ {
+$2~/DATA_ENTRADA/ && $3~/[0-9-]+/ {
 	dias[$3]++;
+	ultDia = $3;
 }
 
 $4~/\/SAIDA/ {
@@ -17,12 +18,14 @@ $2~/IMPORTANCIA/ {
 	gsub(",",".", $3);
 	totalGasto += $3;
 	ultimoGasto = $3;
+	totalDias[ultDia] += $3;
 }
 
 $2~/VALOR_DESCONTO/ {
 	gsub(",", ".", $3);
 	totalGasto  -= $3;
 	ultimoGasto -= $3;
+	totalDias[ultDia] -= $3;
 }
 
 $2~/TIPO/ && $3~/Parques/ {
@@ -32,12 +35,14 @@ $2~/TIPO/ && $3~/Parques/ {
 END {
 	print "Número de ’entradas’ em cada dia do mês:";
 	for (i in dias) 
-		print strOut i ":", dias[i];
+		printf(format, i, dias[i], totalDias[i]);
+
 	print "Lista de locais de ’saída’:";
 	for (i in locaisSaida)
-		print "\t"i;
+			print "\t"i, "("locaisSaida[i]")";
+
 	print "Total gasto no mês:";
-	print "\tTotal:", totalGasto;
+	print "\tTotal:", totalGasto"€";
 	print "Total gasto no mês apenas em ’parques’:";
-	print "\tTotal:", totalParques;
+	print "\tTotal:", totalParques"€";
 }

@@ -1,0 +1,43 @@
+#!/usr/bin/gawk -f
+
+BEGIN {
+	FS = "[<>]";
+	strOut = "\tDia ";
+}
+
+$2~/DATA_ENTRADA/ && $3~/[0-9]+/ {
+	dias[$3]++;
+}
+
+$4~/\/SAIDA/ {
+	locaisSaida[$3]++;
+}
+
+$2~/IMPORTANCIA/ {
+	gsub(",",".", $3);
+	totalGasto += $3;
+	ultimoGasto = $3;
+}
+
+$2~/VALOR_DESCONTO/ {
+	gsub(",", ".", $3);
+	totalGasto  -= $3;
+	ultimoGasto -= $3;
+}
+
+$2~/TIPO/ && $3~/Parques/ {
+	totalParques += ultimoGasto;
+}
+
+END {
+	print "Número de ’entradas’ em cada dia do mês:";
+	for (i in dias) 
+		print strOut i ":", dias[i];
+	print "Lista de locais de ’saída’:";
+	for (i in locaisSaida)
+		print "\t"i;
+	print "Total gasto no mês:";
+	print "\tTotal:", totalGasto;
+	print "Total gasto no mês apenas em ’parques’:";
+	print "\tTotal:", totalParques;
+}

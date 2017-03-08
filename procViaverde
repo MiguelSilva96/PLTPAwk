@@ -2,7 +2,8 @@
 
 BEGIN {
 	FS = "[<>]";
-	format = "\tDia %s: %d (%.2f€)\n";
+	fmtEntradas = "\tDia %s: %d (%.2f€)\n";
+	fmtTotais = "\tTotal gasto apenas em %s: %.2f€\n";
 }
 
 $2~/DATA_ENTRADA/ && $3~/[0-9-]+/ {
@@ -12,6 +13,10 @@ $2~/DATA_ENTRADA/ && $3~/[0-9-]+/ {
 
 $4~/\/SAIDA/ {
 	locaisSaida[$3]++;
+}
+
+$4~/\/ENTRADA/ {
+	locaisEntra[$3]++;
 }
 
 $2~/IMPORTANCIA/ {
@@ -28,21 +33,22 @@ $2~/VALOR_DESCONTO/ {
 	totalDias[ultDia] -= $3;
 }
 
-$2~/TIPO/ && $3~/Parques/ {
-	totalParques += ultimoGasto;
+$2~/TIPO/ {
+	totalLocais[$3] += ultimoGasto;
 }
 
 END {
-	print "Número de ’entradas’ em cada dia do mês:";
+	print "Nº de 'entradas' em cada dia do mês:";
 	for (i in dias) 
-		printf(format, i, dias[i], totalDias[i]);
+		printf(fmtEntradas, i, dias[i], totalDias[i]);
 
-	print "Lista de locais de ’saída’:";
+	print "Locais de ’saída’:";
 	for (i in locaisSaida)
 			print "\t"i, "("locaisSaida[i]")";
 
 	print "Total gasto no mês:";
 	print "\tTotal:", totalGasto"€";
-	print "Total gasto no mês apenas em ’parques’:";
-	print "\tTotal:", totalParques"€";
+
+	for(i in totalLocais)
+		printf(fmtTotais, i, totalLocais[i]);
 }

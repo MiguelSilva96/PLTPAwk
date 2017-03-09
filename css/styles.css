@@ -9,20 +9,28 @@ body {
 	background-color: #2f2f2f; 
 }
 
-li {
-	background-color: #ffffff; 
-	color: #555555;
+li { 
+	color: #333333;
 	padding-left: 10px;
+}
+
+ul {
+	background-color: #fff;
+	border-radius: 10px;
 }
 
 .bg-2 { 
 	background-color: #474e5d; 
 	color: #ffffff;
+	padding-left: 10px;
+	border-radius: 10px;
 }
 
 .bg-3 { 
-	background-color: #ffffff; 
+	background-color: #dcdcdc;
 	color: #555555;
+	border-radius: 10px;
+	padding-left: 10px;
 }
 
 .bg-4 { 

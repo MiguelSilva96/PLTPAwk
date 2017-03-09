@@ -14,6 +14,7 @@ BEGIN {
     end = "</body> </html>";
     beg = "<div class='bg-4 title'><h1> Via Verde </h1>";
     css = "<link rel='stylesheet' href='css/styles.css'>";
+    ref = "<a target='_blank' href='%s'>%s</a>";
     maps = "https://www.google.pt/maps/place/";
     infoCliente = 0;
 }
@@ -33,14 +34,17 @@ $2~/MES_EMISSAO/{
 
 $2~/NIF/{
     infoCliente++;
+    print "<ul>" > "index.html";
 }
 
 infoCliente {
     str = "<b>"$2"</b>: "$3;
     gsub("_"," ", str);
     printf(fmtli, str) > "index.html";
-    if($2~/CODIGO_POSTAL/)
+    if($2~/CODIGO_POSTAL/) {
         infoCliente--;
+        print "</ul>" > "index.html";
+    }
 }
 
 $2~/DATA_ENTRADA/ && $3~/[0-9-]+/ {
@@ -78,23 +82,28 @@ END {
     print "<h2 class='bg-4'>Informação:</h2>" > "index.html";
     str = "Nº de 'entradas' em cada dia do mês:";
     printf(fmth4, str) > "index.html";
+    print "<ul>" > "index.html";
     for (i in dias) 
         printf(fmtEntradas, i, dias[i], totalDias[i]) > "index.html";
+    print "</ul>" > "index.html";
 
     printf(fmth4, "Locais de ’saída’:") > "index.html";
+    print "<ul>" > "index.html";
     for (i in locaisSaida) {
-        ref = "<a target='_blank' href='%s'>%s</a>";
         aux = sprintf(ref, maps i, i);
         str = aux " " "("locaisSaida[i]")";
         printf(fmtli, str) > "index.html";
     }
+    print "</ul>" > "index.html";
 
     str = "Total gasto no mês:";
     printf(fmth4, str) > "index.html";
     str = "Total:" " " totalGasto"€";
     printf(fmth5, str) > "index.html";
+    print "<ul>" > "index.html";
     for(i in totalLocais)
         printf(fmtTotais, i, totalLocais[i]) > "index.html";
+    print "</ul>" > "index.html";
 
     print end > "index.html";
 }

@@ -2,6 +2,7 @@
 
 BEGIN {
     FS = "[<>]";
+    file = "index.html";
     fmtEntradas = "<li><b>Dia %s:</b> %d (%.2f€)</li>\n";
     fmtTotais = "<li>Total gasto apenas em %s: %.2f€</li>\n";
     fmtli = "<li>%s</li>\n";
@@ -20,30 +21,31 @@ BEGIN {
 }
 
 NR == 1 {
-    print ini > "index.html";
-    print tit > "index.html";
-    print css > "index.html";
-    print enc > "index.html";
-    print beg > "index.html";
+    print ini > file;
+    print tit > file;
+    print css > file;
+    print enc > file;
+    print beg > file;
 }
 
 $2~/MES_EMISSAO/{
     s = "Mês Emissão: " $3;
-    printf(fmth2, s) > "index.html";
+    printf(fmth2, s) > file;
 }
 
 $2~/NIF/{
     infoCliente++;
-    print "<ul>" > "index.html";
+    print "<ul>" > file;
 }
 
 infoCliente {
     str = "<b>"$2"</b>: "$3;
     gsub("_"," ", str);
-    printf(fmtli, str) > "index.html";
+    printf(fmtli, str) > file;
+
     if($2~/CODIGO_POSTAL/) {
+        print "</ul>" > file;
         infoCliente--;
-        print "</ul>" > "index.html";
     }
 }
 
@@ -79,31 +81,35 @@ $2~/TIPO/ {
 }
 
 END {
-    print "<h2 class='bg-4'>Informação:</h2>" > "index.html";
-    str = "Nº de 'entradas' em cada dia do mês:";
-    printf(fmth4, str) > "index.html";
-    print "<ul>" > "index.html";
-    for (i in dias) 
-        printf(fmtEntradas, i, dias[i], totalDias[i]) > "index.html";
-    print "</ul>" > "index.html";
+    str = "<h2 class='bg-4'>Informação:</h2>";
+    print str > file;
 
-    printf(fmth4, "Locais de ’saída’:") > "index.html";
-    print "<ul>" > "index.html";
+    str = "Nº de 'entradas' em cada dia do mês:";
+    printf(fmth4, str) > file;
+    print "<ul>" > file;
+    for (i in dias) 
+        printf(fmtEntradas, i, dias[i], totalDias[i]) > file;
+    print "</ul>" > file;
+
+
+    printf(fmth4, "Locais de ’saída’:") > file;
+    print "<ul>" > file;
     for (i in locaisSaida) {
         aux = sprintf(ref, maps i, i);
         str = aux " " "("locaisSaida[i]")";
-        printf(fmtli, str) > "index.html";
+        printf(fmtli, str) > file;
     }
-    print "</ul>" > "index.html";
+    print "</ul>" > file;
+
 
     str = "Total gasto no mês:";
-    printf(fmth4, str) > "index.html";
+    printf(fmth4, str) > file;
     str = "Total:" " " totalGasto"€";
-    printf(fmth5, str) > "index.html";
-    print "<ul>" > "index.html";
+    printf(fmth5, str) > file;
+    print "<ul>" > file;
     for(i in totalLocais)
-        printf(fmtTotais, i, totalLocais[i]) > "index.html";
-    print "</ul>" > "index.html";
+        printf(fmtTotais, i, totalLocais[i]) > file;
+    print "</ul>" > file;
 
-    print end > "index.html";
+    print end > file;
 }

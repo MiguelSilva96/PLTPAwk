@@ -1,0 +1,36 @@
+/*
+ *Silva
+*/
+
+body {
+	font: 20px sans-serif;
+	line-height: 2.0;
+	color: #f5f6f7;
+	background-color: #2f2f2f; 
+}
+
+li {
+	background-color: #ffffff; 
+	color: #555555;
+	padding-left: 10px;
+}
+
+.bg-2 { 
+	background-color: #474e5d; 
+	color: #ffffff;
+}
+
+.bg-3 { 
+	background-color: #ffffff; 
+	color: #555555;
+}
+
+.bg-4 { 
+	background-color: #2f2f2f; 
+	color: #fff;
+}
+
+.title {
+	color: #7f7;
+	text-align: center;
+}

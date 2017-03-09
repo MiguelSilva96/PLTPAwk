@@ -2,8 +2,42 @@
 
 BEGIN {
     FS = "[<>]";
-    fmtEntradas = "\tDia %s: %d (%.2f€)\n";
-    fmtTotais = "\tTotal gasto apenas em %s: %.2f€\n";
+    fmtEntradas = "<li>Dia %s: %d (%.2f€)</li>\n";
+    fmtTotais = "<li>Total gasto apenas em %s: %.2f€</li>\n";
+    fmtli = "<li>%s</li>\n";
+    fmth4 = "<h4>%s</h4>\n";
+    fmth2 = "<h2>%s</h2>\n";
+    ini = "<html> <head>\n";
+    tit = "<title> Via Verde </title>";
+    enc = "<meta charset='utf-8'/> </head> <body>";
+    end = "</body> </html>";
+    beg = "<center><h1> Via Verde </h1></center>";
+    infoCliente = 0;
+}
+
+NR == 1 {
+    print ini > "index.html";
+    print tit > "index.html";
+    print enc > "index.html";
+    print beg > "index.html";
+}
+
+$2~/MES_EMISSAO/{
+    s = "Mês Emissão: " $3;
+    printf(fmth2, s) > "index.html";
+    s = "Cliente: "
+    printf(fmth2, s) > "index.html";
+}
+
+$2~/NIF/{
+    infoCliente++;
+}
+
+infoCliente {
+    str = "<b>"$2"</b>: "$3;
+    printf(fmtli, str) > "index.html";
+    if($2~/CODIGO_POSTAL/)
+        infoCliente--;
 }
 
 $2~/DATA_ENTRADA/ && $3~/[0-9-]+/ {
@@ -38,17 +72,23 @@ $2~/TIPO/ {
 }
 
 END {
-    print "Nº de 'entradas' em cada dia do mês:";
+    print "<h2>Informação:</h2>" > "index.html";
+    str = "Nº de 'entradas' em cada dia do mês:";
+    printf(fmth4, str) > "index.html";
     for (i in dias) 
-        printf(fmtEntradas, i, dias[i], totalDias[i]);
+        printf(fmtEntradas, i, dias[i], totalDias[i]) > "index.html";
 
-    print "Locais de ’saída’:";
-    for (i in locaisSaida)
-        print "\t"i, "("locaisSaida[i]")";
+    printf(fmth4, "Locais de ’saída’:") > "index.html";
+    for (i in locaisSaida) {
+        str = i " " "("locaisSaida[i]")";
+        printf(fmtli, str) > "index.html";
+    }
 
-    print "Total gasto no mês:";
-    print "\tTotal:", totalGasto"€";
-
+    str = "Total gasto no mês:";
+    printf(fmth4, str) > "index.html";
+    print "Total:", totalGasto"€" > "index.html";
     for(i in totalLocais)
-        printf(fmtTotais, i, totalLocais[i]);
+        printf(fmtTotais, i, totalLocais[i]) > "index.html";
+
+    print end > "index.html";
 }

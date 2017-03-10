@@ -42,3 +42,11 @@ ul {
 	color: #7f7;
 	text-align: center;
 }
+
+a {
+	color: #333333;
+}
+
+a:hover {
+	color: #aaaaaa !important;
+}

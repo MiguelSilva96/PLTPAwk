@@ -109,41 +109,29 @@ Algum texto curto mas que entusiasme à leitura do relatório de \pe.
 
 \chapter{Introdução} \label{intro}
 
+O avanço tecnológico dos últimos anos trouxe consigo a inevitabilidade de processar cada vez mais texto.
+Por parte de grande parte dos utilizadores existe a necessidade frequente de fazer mudanças ou extrair determinadas
+linhas de grandes quantidades de texto onde certos padrões são bastante evidentes.
+O uso de expressões regulares, que proporcionam um método eficiente, poderoso e flexível no que toca ao processamento de texto,
+combinado com as ferramentas que a linguagem AWK (linguagem de programação bastante mais fácil de utilizar que as linguagens mais
+convencionais) proporciona um método eficiente para solucionar as necessidades descritas acima. Das ferramentas descritas anteriormente
+destacam-se funções capazes de manipular strings e a utilização de arrays associativos, estruturas de dados bastante uteis e que não são
+disponibilizadas por todas as linguagens de programação.
 
-
-\begin{description}
-  \item [Enquadramento] \textbf{bla bla} bla bla
-  \item [Conteúdo do documento] \textsf{ble ble} \texttt{ble} ble
-  \item [Resultados -- pontos a evidenciar] \textit{bli bli bli bli}
-  \item [Estrutura do documento] \underline{blo blo blo}
-\end{description}
-
-letras gregas são estas $ \alpha \beta \gamma \delta $ que aqui demonstro
-
-exemplo simples de fração \[ \frac{\frac{a * b + c}{4-3}}{3*5} \] simples
-
-Mais exemplos de listas enumeradas mas agora com letras:
-\begin{enumerate}[a)]
-\item Listar todas as Pessoas identificadas, sem repetições;
-\item Listar os Países e Cidades marcadas;
-\item Listar as Organizações.
-\end{enumerate}
-
-A mesma enumeração mas no standard numérico
-\begin{description}
-\item[Etape 1:] Listar todas as Pessoas identificadas, sem repetições;
-\item[Etape 2:] Listar os Países e Cidades marcadas;
-\item[Etape 3:] Listar as Organizações.
-\end{description} 
+Neste primeiro trabalho prático da unidade curricular de "Processamento de Linguagens", através dos meios descritos anteriormente,
+vai desenvolvido um filtro de texto capaz de realizar o processamento de transações presentes nos extratos mensais disponibilizados
+pela empresa Via Verde.
 
 \section*{Estrutura do Relatório} \
-explicar como está organizado o documento, referindo os capítulos existentes em
-e a sua articulação explicando o conteúdo de cada um.
-No capítulo~\ref{ae} faz-se uma análise detalhada do problema proposto
-de modo a poder-se especificar  as entradas, resultados e formas de transformação.\\
-etc. \ldots\\
-No capítulo~\ref{concl} termina-se o relatório com uma síntese do que foi dito,
-as conclusões e o trabalho futuro
+
+No capítulo~\ref{intro} faz-se uma pequena introdução ao problema e às ferramentas utilizadas para a resolução deste.
+Para além disso, é descrita de uma forma breve a estrutura do relatório.\\
+No capítulo~\ref{ae} faz-se uma análise breve mas mais detalhada do problema escolhido pelo grupo de trabalho.\\
+No capítulo~\ref{cd} é descrito de uma forma sumarizada como procedemos para solucionar as várias questões propostas pelo enunciado.
+
+No capítulo~\ref{ct} são apresentados alguns testes e respectivos resultados para comprovar o respectivo funcionamento da solução apresentada.
+
+Finalmente, no capítulo~\ref{concl} termina-se o relatório com uma síntese do que foi dito, as conclusões e o trabalho futuro.
 
 \chapter{Análise e Especificação} \label{ae}
 \section{Descrição informal do problema}
@@ -152,11 +140,11 @@ as conclusões e o trabalho futuro
 \subsection{Pedidos}
 \subsection{Relações}
 
-\chapter{Concepção/desenho da Resolução}
+\chapter{Concepção/desenho da Resolução} \label{cd}
 \section{Estruturas de Dados}
 \section{Algoritmos}
 
-\chapter{Codificação e Testes}
+\chapter{Codificação e Testes} \label{ct}
 \section{Alternativas, Decisões e Problemas de Implementação}
 \section{Testes realizados e Resultados}
 Mostram-se a seguir alguns testes feitos (valores introduzidos) e
@@ -181,4 +169,4 @@ Lista-se a seguir o código  do programa  que foi desenvolvido.
 
 
 
-\end{document} 
+\end{document}

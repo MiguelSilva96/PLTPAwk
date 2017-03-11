@@ -3,8 +3,8 @@
 %
 \documentclass{report}
 \usepackage[portuges]{babel}
-%\usepackage[utf8]{inputenc}
-\usepackage[latin1]{inputenc}
+\usepackage[utf8]{inputenc}
+%\usepackage[latin1]{inputenc}
 
 \usepackage{url}
 \usepackage{enumerate}
@@ -12,17 +12,35 @@
 %\usepackage{alltt}
 %\usepackage{fancyvrb}
 \usepackage{listings}
+\usepackage{eurosym}
 %LISTING - GENERAL
 \lstset{
-	basicstyle=\small,
-	numbers=left,
-	numberstyle=\tiny,
-	numbersep=5pt,
-	breaklines=true,
-  frame=tB,
-	mathescape=true,
-	escapeinside={(*@}{@*)}
+    language=Awk,
+    basicstyle=\ttfamily\small,
+    numberstyle=\footnotesize,
+    numbers=left,
+    frame=single,
+    tabsize=2,
+    title=\lstname,
+    escapeinside={\%*}{*)},
+    breaklines=true,
+    breakatwhitespace=true,
+    framextopmargin=2pt,
+    framexbottommargin=2pt,
+    inputencoding=utf8,
+    extendedchars=true,
+    showspaces=false,
+    showstringspaces=false,
+    literate={√°}{{\'a}}1 {√©}{{\'e}}1 {√≠}{{\'i}}1 {√≥}{{\'o}}1 {√∫}{{\'u}}1
+    {√Å}{{\'A}}1 {√â}{{\'E}}1 {√ç}{{\'I}}1 {√ì}{{\'O}}1 {√ö}{{\'U}}1
+    {√†}{{\`a}}1 {√®}{{\`e}}1 {√¨}{{\`i}}1 {√≤}{{\`o}}1 {√π}{{\`u}}1
+    {√Ä}{{\`A}}1 {√à}{{\'E}}1 {√å}{{\`I}}1 {√í}{{\`O}}1 {√ô}{{\`U}}1
+    {√¢}{{\^a}}1 {√™}{{\^e}}1 {√Æ}{{\^i}}1 {√¥}{{\^o}}1 {√ª}{{\^u}}1
+    {√£}{{\~a}}1 {¬∫}{{\textsuperscript{o}}}1 {√ß}{{\c c}}1 {√á}{{\c C}}1
+    {‚Ç¨}{{\euro}}1
 }
+
+
 %
 %\lstset{ %
 %	language=Java,							% choose the language of the code
@@ -62,7 +80,7 @@
 
 \def\darius{\textsf{Darius}\xspace}
 \def\antlr{\texttt{AnTLR}\xspace}
-\def\pe{\emph{PublicaÁ„o EletrÛnica}\xspace}
+\def\pe{\emph{Publica√ß√£o Eletr√≥nica}\xspace}
 
 \def\titulo#1{\section{#1}}
 \def\super#1{{\em Supervisor: #1}\\ }
@@ -72,7 +90,7 @@
 
 %%%%\input{LPgeneralDefintions}
 
-\title{ProgramaÁ„o Imperativa (?∫ ano de Curso)\\ \textbf{Trabalho Pr·tico N}\\ RelatÛrio de Desenvolvimento}
+\title{Programa√ß√£o Imperativa (?¬∫ ano de Curso)\\ \textbf{Trabalho Pr√°tico N}\\ Relat√≥rio de Desenvolvimento}
 \author{Nome-Aluno1\\ (numero) \and Nome-Aluno2\\ (numero) }
 \date{\today}
 
@@ -81,129 +99,85 @@
 \maketitle
 
 \begin{abstract}
-Isto È um resumo do relatÛrio de \pe focando o contexto do trb (muito sucinto),
+Isto √© um resumo do relat√≥rio de \pe focando o contexto do trb (muito sucinto),
 os objectivos concretos e os resultados atingidos.\\
-Algum texto curto mas que entusiasme ‡ leitura do relatÛrio de \pe.
+Algum texto curto mas que entusiasme √† leitura do relat√≥rio de \pe.
 \end{abstract}
 
 \tableofcontents
 
-\chapter{IntroduÁ„o} \label{intro}
 
-\super{Pedro Rnagel Henriques}
-\titulo{Um belo Projeto}
-\area{Processamento de Linguagens}
-blablabla
-\super{JosÈ Jo„o}
-\titulo{Um belo Dia em Briteiros}
+\chapter{Introdu√ß√£o} \label{intro}
+
 
 
 \begin{description}
   \item [Enquadramento] \textbf{bla bla} bla bla
-  \item [Conte˙do do documento] \textsf{ble ble} \texttt{ble} ble
+  \item [Conte√∫do do documento] \textsf{ble ble} \texttt{ble} ble
   \item [Resultados -- pontos a evidenciar] \textit{bli bli bli bli}
   \item [Estrutura do documento] \underline{blo blo blo}
 \end{description}
 
-letras gregas s„o estas $ \alpha \beta \gamma \delta $ que aqui demonstro
+letras gregas s√£o estas $ \alpha \beta \gamma \delta $ que aqui demonstro
 
-exemplo simples de fraÁ„o \[ \frac{\frac{a * b + c}{4-3}}{3*5} \] simples
+exemplo simples de fra√ß√£o \[ \frac{\frac{a * b + c}{4-3}}{3*5} \] simples
 
 Mais exemplos de listas enumeradas mas agora com letras:
 \begin{enumerate}[a)]
-\item Listar todas as Pessoas identificadas, sem repetiÁıes;
-\item Listar os PaÌses e Cidades marcadas;
-\item Listar as OrganizaÁıes.
+\item Listar todas as Pessoas identificadas, sem repeti√ß√µes;
+\item Listar os Pa√≠ses e Cidades marcadas;
+\item Listar as Organiza√ß√µes.
 \end{enumerate}
 
-A mesma enumeraÁ„o mas no standard numÈrico
+A mesma enumera√ß√£o mas no standard num√©rico
 \begin{description}
-\item[Etape 1:] Listar todas as Pessoas identificadas, sem repetiÁıes;
-\item[Etape 2:] Listar os PaÌses e Cidades marcadas;
-\item[Etape 3:] Listar as OrganizaÁıes.
+\item[Etape 1:] Listar todas as Pessoas identificadas, sem repeti√ß√µes;
+\item[Etape 2:] Listar os Pa√≠ses e Cidades marcadas;
+\item[Etape 3:] Listar as Organiza√ß√µes.
 \end{description} 
 
-\section*{Estrutura do RelatÛrio} \
-explicar como est· organizado o documento, referindo os capÌtulos existentes em~\cite{Pereira201635}
-e a sua articulaÁ„o explicando o conte˙do de cada um.
-No capÌtulo~\ref{ae} faz-se uma an·lise detalhada do problema proposto
-de modo a poder-se especificar  as entradas, resultados e formas de transformaÁ„o.\\
+\section*{Estrutura do Relat√≥rio} \
+explicar como est√° organizado o documento, referindo os cap√≠tulos existentes em
+e a sua articula√ß√£o explicando o conte√∫do de cada um.
+No cap√≠tulo~\ref{ae} faz-se uma an√°lise detalhada do problema proposto
+de modo a poder-se especificar  as entradas, resultados e formas de transforma√ß√£o.\\
 etc. \ldots\\
-No capÌtulo~\ref{concl} termina-se o relatÛrio com uma sÌntese do que foi dito,
-as conclusıes e o trabalho futuro
+No cap√≠tulo~\ref{concl} termina-se o relat√≥rio com uma s√≠ntese do que foi dito,
+as conclus√µes e o trabalho futuro
 
-\chapter{An·lise e EspecificaÁ„o} \label{ae}
-\section{DescriÁ„o informal do problema}
-\section{EspecificaÁ„o do Requisitos}
+\chapter{An√°lise e Especifica√ß√£o} \label{ae}
+\section{Descri√ß√£o informal do problema}
+\section{Especifica√ß√£o do Requisitos}
 \subsection{Dados}
 \subsection{Pedidos}
-\subsection{RelaÁıes}
+\subsection{Rela√ß√µes}
 
-\chapter{ConcepÁ„o/desenho da ResoluÁ„o}
+\chapter{Concep√ß√£o/desenho da Resolu√ß√£o}
 \section{Estruturas de Dados}
 \section{Algoritmos}
 
-\chapter{CodificaÁ„o e Testes}
-\section{Alternativas, Decisıes e Problemas de ImplementaÁ„o}
+\chapter{Codifica√ß√£o e Testes}
+\section{Alternativas, Decis√µes e Problemas de Implementa√ß√£o}
 \section{Testes realizados e Resultados}
 Mostram-se a seguir alguns testes feitos (valores introduzidos) e
 os respectivos resultados obtidos:
 
-%\VerbatimInput{teste1.txt}
 
 
-\chapter{Conclus„o} \label{concl}
-SÌntese do Documento~\cite{Martini2016a,Hoare73a}.\\
-Estado final do projecto; An·lise crÌtica dos resultados~\cite{Sto77a}.\\
+\chapter{Conclus√£o} \label{concl}
+S√≠ntese do Documento~.\\
+Estado final do projecto; An√°lise cr√≠tica dos resultados~.\\
 Trabalho futuro.
 
 \appendix
-\chapter{CÛdigo do Programa}
+\chapter{C√≥digo do Programa}
 
-Lista-se a seguir o cÛdigo \antlr~\cite{Par05} do programa \darius~\cite{NPH2016a} que foi desenvolvido.
-\begin{verbatim}
-public class Aula()
-  {
-    int n, m;
-    int max(int a, int b)
-      {
-       ......
-       return(max);
-      }
-  }
-\end{verbatim}
+Lista-se a seguir o c√≥digo  do programa  que foi desenvolvido.
 
-\begin{verbatim}
-llll sanjdb c kjnjcnjnjj mmmmmmmmmmmmm hhhhhhhhhhhhhhhhhhhhhhhh jjjjjjjjjjjjjjjjjjjjjjjjjjjj kkkkkkkkkkkkkkkkkk
-      aqui deve aparecer o cÛdigo do programa,
-      tal como est· formato no ficheiro-fonte "darius.java"
-      caso indesej·vel $\varepsilon$
-\end{verbatim}
-
-\begin{lstlisting}[caption={Exemplo de uma Listagem}, label={lstExe1}]
-llll sanjdb c kjnjcnjnjj mmmmmmmmmmmmm hhhhhhhhhhhhhhhhhhhhhhhh jjjjjjjjjjjjjjjjjjjjjjjjjjjj kkkkkkkkkkkkkkkkkk
-      ou ent„o aparecer aqui neste sÌtio um pouco de matematica $\$$
-      como alternativa ao anterior.
-      e aqui mais um teste $\varepsilon$
-\end{lstlisting}
-
-… ainda possÌvel importar diretamente o ficheiro:
-\lstinputlisting{plfiltrobase.l} %input de um ficheiro
+\lstinputlisting{procViaverde}%input de um ficheiro
 
 \bibliographystyle{alpha}
 \bibliography{relprojLayout}
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -78,10 +78,9 @@
 \setlength{\headsep}{-1cm}
 \setlength{\textheight}{23cm}
 
-\def\darius{\textsf{Darius}\xspace}
-\def\antlr{\texttt{AnTLR}\xspace}
-\def\pe{\emph{Publicação Eletrónica}\xspace}
 \def\pt{\emph{Processador de Texto}\xspace}
+\def\fs{\emph{Field Seperator}\xspace}
+
 
 \def\titulo#1{\section{#1}}
 \def\super#1{{\em Supervisor: #1}\\ }
@@ -100,9 +99,8 @@
 \maketitle
 
 \begin{abstract}
-Isto é um resumo do relatório de \pe focando o contexto do trb (muito sucinto),
-os objectivos concretos e os resultados atingidos.\\
-Algum texto curto mas que entusiasme à leitura do relatório de \pe.
+Isto é um resumo do relatório de sadsa focando o contexto do trb (muito sucinto),
+Cenas
 \end{abstract}
 
 \tableofcontents
@@ -144,8 +142,7 @@ em mais detalhe a baixo, na Especificação dos Requisitos.
 \subsection{Dados}
 Como já foi referido, é fornecido um ficheiro xml com informação correspondente ao estrato mensal emitido 
 pela Via Verde para um dos seus utentes.
-Este ficheiro contém no início informação do utente e também do mês
-de emissão. 
+Este ficheiro contém, no início, informação do utente e também também especifica o mês de emissão. 
 Depois destes dados, seguem-se todas as transações do cliente.
 Cada uma destas transações, contém a data, as horas de entrada e saída, o
 local de entrada e saída, a importância paga, o desconto, o iva, o operador
@@ -168,20 +165,43 @@ guardar informação relativa a alguns tópicos. Por exemplo, será crucial guar
 à quantidade de entradas num determinado dia. Para guardar informação deste tipo, serão utilizados arrays associativos. 
 Embora apenas seja requisitado que se liste os diferentes locais de saída, serão utilizados arrays associativos de 
 forma a guardar também quantas vezes passou por cada um desses locais. Relativamente a cada dia, serão ainda guardados os 
-totais gastos em cada dia num array associativo que, embora não seja um requisito, considera-se informação importante. 
-Acrescentando ainda aos extras já apresentados, armazena-se informação relativa ao valor despendido em parques e também em auto-estradas.
+totais gastos em cada dia num array associativo que, embora não seja um requisito, se considera informação importante. 
+Acrescentando ainda aos extras já apresentados, armazena-se informação relativa ao valor despendido em parques e também em portagens.
+Informação como o total gasto no mês não precisa de ser guardada em nenhuma estrutura de dados, bastando usar um float para o efeito.
 \section{Algoritmos}
 No início do programa, serão atribuidos todos os valores necessários a algumas variáveis que serão uteis para o corpo do programa.
 Por exemplo strings, inteiros e formatos para a função printf.
-É também muito importante a definição de um Field Seperator adequado para facilitar o processamento do ficheiro.\par
+É também muito importante a definição de um \fs adequado para facilitar o processamento do ficheiro.\par
 O corpo do programa será na forma de condição e ação respetiva, como é típico usando GAWK. 
 Na maioria das condições, estão especificadas expressões regulares que um ou mais 'fields' da linha atual tem que satisfazer. 
 Sabendo que esse 'field' satisfez a expressão regular, guarda-se informação valiosa para o resultado final do programa.\par
-Chegando à fase final de execução, trata-se a informação obtida, de forma a apresentar os resultados em formato apelativo. 
-Por exemplo, usando html com strings definidas no início e não só.
+Chegando à fase final de execução trata-se a informação obtida, de forma a apresentar os resultados em formato apelativo. Por exemplo, usando html com strings definidas no início e não só. Existirá, muito provavelmente, 
+um ciclo para quase todos os arrays associativos de forma a apresentar a informação 
+armazenada no mesmo. Um destes ciclos, deverá juntar a quantidade de entradas num dia e o total gasto no mesmo.
+Depois de tratar toda a informação, no caso de ser usado html, coloca-se o final no ficheiro fechando o body e o html. 
 
 \chapter{Codificação e Testes} \label{ct}
 \section{Alternativas, Decisões e Problemas de Implementação}
+Uma das decisões tomadas logo no início da implementação foi usar html como tipo de ficheiro de 'output'.
+Este ficheiro utiliza estilos escritos em css. 
+Também é utilizada a font-awesome para juntar icons que refletem o conteúdo de cada linha apresentada. 
+O objetivo do uso destes recursos é tornar o conteúdo do ficheiro apelativo.
+Uma alternativa a esta abordagem seria utilizar o standard output para
+apresentar os resultados, mas considerou-se que o html 'ganhava' em tudo, 
+excepto na complexidade de construção. Tendo apenas esse problema, que não
+causa muito transtorno, achou-se por bem optar pelo html.
+Como se pode verificar no bloco begin(linhas 3 a 24), foram criados vários formatos e strings para auxiliar na criação do ficheiro.\par
+Das decisões tomadas, a mais importante foi, talvez, decidir qual \fs usar. Depois de observar bem o ficheiro xml, chegou-se à 
+conclusão que seria oportuno utilizar como \fs a expressão regular na linha 4 do código: [\textless\textgreater]. Assim, é possível obter o que esta dentro de cada elemento xml apenas acedendo à posição 3. Isto facilita muito a obtenção de informação.
+Com outra abordagem, podia ter sido usado o \fs default, mas dessa
+forma seria necessário um tratamento muito mais complexo das strings
+em cada posição para retirar dados importantes. \par
+Durante a implementação do programa, não houve nenhum problema que mereça 
+destaque. Os algoritmos utilizados são relativamente simples e as 
+expressões regulares também. A expressão mais 'complexa' utilizada, foi a 
+que garante que a data de entrada seja no formato correto(removendo ocorrências de null). Esta expressão está presente na linha 57 do código.
+
+
 \section{Testes realizados e Resultados}
 Mostram-se a seguir alguns testes feitos (valores introduzidos) e
 os respectivos resultados obtidos:

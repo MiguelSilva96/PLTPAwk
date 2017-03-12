@@ -63,9 +63,6 @@ $4~/\/SAIDA/ {
     locaisSaida[$3]++;
 }
 
-$4~/\/ENTRADA/ {
-    locaisEntra[$3]++;
-}
 
 $2~/IMPORTANCIA/ {
     gsub(",",".", $3);
@@ -118,4 +115,6 @@ END {
     print "</ul>" > file;
 
     print end > file;
+    for(i in duracoes)
+        print i, duracoes[i]
 }

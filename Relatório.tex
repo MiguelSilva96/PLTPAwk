@@ -81,6 +81,7 @@
 \def\darius{\textsf{Darius}\xspace}
 \def\antlr{\texttt{AnTLR}\xspace}
 \def\pe{\emph{Publicação Eletrónica}\xspace}
+\def\pt{\emph{Processador de Texto}\xspace}
 
 \def\titulo#1{\section{#1}}
 \def\super#1{{\em Supervisor: #1}\\ }
@@ -122,6 +123,7 @@ Neste primeiro trabalho prático da unidade curricular de "Processamento de Ling
 vai desenvolvido um filtro de texto capaz de realizar o processamento de transações presentes nos extratos mensais disponibilizados
 pela empresa Via Verde.
 
+
 \section*{Estrutura do Relatório} \
 
 No capítulo~\ref{intro} faz-se uma pequena introdução ao problema e às ferramentas utilizadas para a resolução deste.
@@ -135,14 +137,48 @@ Finalmente, no capítulo~\ref{concl} termina-se o relatório com uma síntese do
 
 \chapter{Análise e Especificação} \label{ae}
 \section{Descrição informal do problema}
-\section{Especificação do Requisitos}
+É fornecido um ficheiro xml, que corresponde ao extrato mensal emitido pela Via Verde para um dos seus utentes. 
+Pretende-se que se desenvolva um \pt para ler esse mesmo ficheiro e retirar a informação requisitada, apresentada 
+em mais detalhe a baixo, na Especificação dos Requisitos.
+\section{Especificação dos Requisitos}
 \subsection{Dados}
+Como já foi referido, é fornecido um ficheiro xml com informação correspondente ao estrato mensal emitido 
+pela Via Verde para um dos seus utentes.
+Este ficheiro contém no início informação do utente e também do mês
+de emissão. 
+Depois destes dados, seguem-se todas as transações do cliente.
+Cada uma destas transações, contém a data, as horas de entrada e saída, o
+local de entrada e saída, a importância paga, o desconto, o iva, o operador
+e ainda o tipo de transação(Portagens ou Parques de estacionamento).
+No final do ficheiro, é apresentado o total gasto no mês de emissão e ainda
+o valor que diz respeito ao iva.
 \subsection{Pedidos}
-\subsection{Relações}
+O utente pode ter efetuado entrada em alguns dos dias do mês a que este extrato se refere. 
+Posto isto, é solicitado que se calcule o número de entradas em cada dia do mês.
+Considera-se também relevante obter a lista de locais de saída pelos quais o utente passou durante todo o mês.
+Chegando ao fim do mês, uma das informações mais importantes para o utente é, muito provavelmente, o total gasto nesse mesmo mês. 
+É então pedido que se obtenha o total que o utente gastou. Pretende-se também que seja calculado quanto desse total é que corresponde 
+ao valor despendido apenas em parques de estacionamento.\par
+Para obter a informação necessária será utilizado o Sistema de Produção GAWK, especificando os padrões de frases que se pretende encontrar com recurso a expressões regulares.
 
 \chapter{Concepção/desenho da Resolução} \label{cd}
 \section{Estruturas de Dados}
+Pensando nos requisitos para este projeto, é fácil de perceber que será necessário 
+guardar informação relativa a alguns tópicos. Por exemplo, será crucial guardar a informação que diz respeito 
+à quantidade de entradas num determinado dia. Para guardar informação deste tipo, serão utilizados arrays associativos. 
+Embora apenas seja requisitado que se liste os diferentes locais de saída, serão utilizados arrays associativos de 
+forma a guardar também quantas vezes passou por cada um desses locais. Relativamente a cada dia, serão ainda guardados os 
+totais gastos em cada dia num array associativo que, embora não seja um requisito, considera-se informação importante. 
+Acrescentando ainda aos extras já apresentados, armazena-se informação relativa ao valor despendido em parques e também em auto-estradas.
 \section{Algoritmos}
+No início do programa, serão atribuidos todos os valores necessários a algumas variáveis que serão uteis para o corpo do programa.
+Por exemplo strings, inteiros e formatos para a função printf.
+É também muito importante a definição de um Field Seperator adequado para facilitar o processamento do ficheiro.\par
+O corpo do programa será na forma de condição e ação respetiva, como é típico usando GAWK. 
+Na maioria das condições, estão especificadas expressões regulares que um ou mais 'fields' da linha atual tem que satisfazer. 
+Sabendo que esse 'field' satisfez a expressão regular, guarda-se informação valiosa para o resultado final do programa.\par
+Chegando à fase final de execução, trata-se a informação obtida, de forma a apresentar os resultados em formato apelativo. 
+Por exemplo, usando html com strings definidas no início e não só.
 
 \chapter{Codificação e Testes} \label{ct}
 \section{Alternativas, Decisões e Problemas de Implementação}

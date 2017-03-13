@@ -4,8 +4,8 @@ BEGIN {
     FS = "[<>]";
     file = "index.html";
     icon = "<i class='fa fa-calendar'>"
-    fmtEntrad = "<li>"icon" <b>Dia %s:</b> %d (%.2f€)</i></li>\n";
-    fmtTotais = "<li>Total gasto apenas em %s: %.2f€</li>\n";
+    fmtEntrad = "<li>"icon" <b>Dia %s:</b> %d (Gastou %.2f€)</i></li>\n";
+    fmtTotais = "<li>Total gasto apenas em %s: %.2f€</i></li>\n";
     fmtli = "<li> %s</li>\n";
     fmth5 = "<h5 class='bg-3'>%s</h5>\n";
     fmth4 = "<h4 class='bg-2'>%s</h4>\n";
@@ -43,7 +43,7 @@ $2~/NIF/{
 }
 
 infoCliente {
-    icon = "<i class='fa fa-user'> ";
+    icon = "<i class='fa fa-user-circle'> ";
     str = icon"<b>"$2"</b>:" $3"</i>";
     gsub("_"," ", str);
     printf(fmtli, str) > file;
@@ -63,6 +63,15 @@ $4~/\/SAIDA/ {
     locaisSaida[$3]++;
 }
 
+$2~/HORA_ENTRADA/ {
+    horaEntrada = $3;
+}
+
+$2~/HORA_SAIDA/ {
+    horaSaida = $3;
+    i = duracao(horaEntrada, horaSaida);
+    duracoes[ultDia] += i;
+}
 
 $2~/IMPORTANCIA/ {
     gsub(",",".", $3);
@@ -89,8 +98,14 @@ END {
     str = "Nº de entradas em cada dia do mês:";
     printf(fmth4, str) > file;
     print "<ul>" > file;
-    for (i in dias)
+    for (i in dias) {
         printf(fmtEntrad, i, dias[i], totDias[i]) > file;
+        icon = "<i class='fa fa-clock-o'> ";
+        aux = "Tempo total em viagem: ";
+        str = icon aux duracoes[i] " minutos</i>";
+        printf(fmth5, str) > file;
+
+    }
     print "</ul>" > file;
 
 
@@ -108,13 +123,31 @@ END {
     str = "Total gasto no mês:";
     printf(fmth4, str) > file;
     str = "Total:" " " totalGasto"€";
-    printf(fmth5, str) > file;
+    print "<div class='aux'>" > file;
+    printf(fmth2, str) > file;
     print "<ul>" > file;
     for(i in totalLocais)
         printf(fmtTotais, i, totalLocais[i]) > file;
     print "</ul>" > file;
 
     print end > file;
-    for(i in duracoes)
-        print i, duracoes[i]
+}
+
+#Args: he - Hora entrada
+#      hs - Hora saida
+#Return duracao em minutos
+function duracao(he, hs) {
+    result = 0;
+    split(he, ae, /[:]/);
+    split(hs, as, /[:]/);
+    if(ae[1]=="" || as[1]=="")
+        return 0;
+    if(as[1]>=ae[1])
+        aux = (as[1]-ae[1])*60;
+    else
+        aux = (as[1] + (24 - ae[1]))*60;
+    result += aux;
+    result -= ae[2];
+    result += as[2];
+    return result;
 }

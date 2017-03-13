@@ -19,6 +19,13 @@ ul {
 	border-radius: 10px;
 }
 
+.aux {
+	background-color: #fff;
+	color: #555555 !important;
+	border-radius: 8px;
+	padding-left: 10px;
+}
+
 .bg-2 { 
 	background-color: #474e5d; 
 	color: #ffffff;

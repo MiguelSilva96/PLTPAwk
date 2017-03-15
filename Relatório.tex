@@ -186,9 +186,9 @@ O corpo do programa será na forma de condição e ação respetiva, como é tí
 Sabendo em que campo começa a aparecer a informação do utilizador e em qual acaba, tirar-se-á partido disso para obter toda a 
 informação(Nome, nif, etc) de forma sistemática, com apenas um bloco de ação.
 Na maioria das condições, estão especificadas expressões regulares que um ou mais 'fields' da linha atual tem que satisfazer. 
-Sabendo que esse 'field' satisfez a expressão regular, guarda-se informação valiosa para o resultado final do programa. 
+Sabendo que esse 'field' satisfez a expressão regular, guarda-se informação valiosa para o resultado final do programa. Um dos objetivos é guardar as entradas em cada dia, para além de as contar.
 Algumas das entradas são em parques ou não têm data de entrada(ou ambos), nesses casos o campo entrada não
-está preenchido, existirão variáveis para saber se é para adicionar entrada e saber se é o caso de parque(Adicionando o nome do 
+está preenchido, existirão variáveis para saber se é para adicionar entrada(caso não haja data, não se pode atribuir à última data porque corresponde a outro local) e saber se é o caso de parque(Adicionando o nome do 
 parque acedendo ao campo saída). Para todo este processo, é necessária uma variável que guarde o último dia de entrada pelo qual se passou.
 Como se pretende saber o gasto em parques e em portagens separadamente, é 
 fulcral que se guarde o último gasto adicionado ao total numa variável para que, chegando ao campo tipo, se adicione esse mesmo valor 

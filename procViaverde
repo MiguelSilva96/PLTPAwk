@@ -3,8 +3,8 @@
 BEGIN {
     FS = "[<>]";
     file = "index.html";
-    icon = "<i class='fa fa-calendar'>"
-    fmtEntrad = "<li>"icon" <b>Dia %s:</b> %d (Gastou %.2f€)</i></li>\n";
+    icon = "<i class='fa fa-calendar'>";
+    fmtEntrad = "<li%s"icon" <b>Dia %s:</b> %d (Gastou %.2f€)</i></li>\n";
     fmtTotais = "<li>Total gasto apenas em %s: %.2f€</i></li>\n";
     fmtli = "<li> %s</li>\n";
     fmth5 = "<h5 class='bg-3'>%s</h5>\n";
@@ -20,7 +20,10 @@ BEGIN {
     fta = "<link rel='stylesheet' href='css/fa/css/font-awesome.css'>";
     ref = "<a target='_blank' href='%s'>%s</a>";
     maps = "https://www.google.pt/maps/place/";
+    sjs = "<script src='js/script.js'></script>";
     infoCliente = 0;
+    adicionarEntrada = 0;
+    parque = 0;
 }
 
 NR == 1 {
@@ -28,6 +31,7 @@ NR == 1 {
     print tit > file;
     print css > file;
     print fta > file;
+    print sjs > file;
     print enc > file;
     print beg > file;
 }
@@ -57,10 +61,27 @@ infoCliente {
 $2~/DATA_ENTRADA/ && $3~/[0-9-]+/ {
     dias[$3]++;
     ultDia = $3;
+    adicionarEntrada = 1;
 }
 
 $4~/\/SAIDA/ {
     locaisSaida[$3]++;
+    if(parque){
+        locaisEntrada[ultDia] = temp"--"$3;
+        parque = 0;
+    }
+}
+
+$4~/\/ENTRADA/ {
+    if(adicionarEntrada) {
+        temp = locaisEntrada[ultDia];
+        if(temp)
+            locaisEntrada[ultDia] = temp"--"$3;
+        else
+            locaisEntrada[ultDia] = $3;
+        if($3 == "") parque = 1;
+        adicionarEntrada = 0;
+    }
 }
 
 $2~/HORA_ENTRADA/ {
@@ -99,7 +120,13 @@ END {
     printf(fmth4, str) > file;
     print "<ul>" > file;
     for (i in dias) {
-        printf(fmtEntrad, i, dias[i], totDias[i]) > file;
+        click = " onclick='openList(\""i"\")'><a>";
+        printf(fmtEntrad, click, i, dias[i], totDias[i]) > file;
+        print "</a><ol id='"i"'>" > file;
+        split(locaisEntrada[i], a, "--");
+        for(j in a)
+            printf(fmtli, a[j]) > file;
+        print "</ol>" > file;
         icon = "<i class='fa fa-clock-o'> ";
         aux = "Tempo total em viagem: ";
         str = icon aux duracoes[i] " minutos</i>";
@@ -126,7 +153,7 @@ END {
     print "<div class='aux'>" > file;
     printf(fmth2, str) > file;
     print "<ul>" > file;
-    for(i in totalLocais)
+    for(i in totalLocais) 
         printf(fmtTotais, i, totalLocais[i]) > file;
     print "</ul>" > file;
 

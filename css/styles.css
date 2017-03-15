@@ -19,6 +19,10 @@ ul {
 	border-radius: 10px;
 }
 
+ol {
+	display: none;
+}
+
 .aux {
 	background-color: #fff;
 	color: #555555 !important;
@@ -52,6 +56,7 @@ ul {
 
 a {
 	color: #333333;
+	cursor: pointer; cursor: hand;
 }
 
 a:hover {

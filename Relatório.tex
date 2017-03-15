@@ -92,7 +92,7 @@
 
 %%%%\input{LPgeneralDefintions}
 
-\title{Processamento de Linguagens (3º ano de Curso)\\ \textbf{Trabalho Prático 1}\\ Relatório de Desenvolvimento}
+\title{Processamento de Linguagens\\ (3º ano de Curso)\\ \textbf{Trabalho Prático nº1 - Parte A}\\ Relatório de Desenvolvimento}
 \author{José Silva\\ (A74601) \and Pedro Cunha\\ (A73958) \and Gonçalo Moreira\\ (A73591) }
 \date{\today}
 
@@ -174,20 +174,32 @@ guardar informação relativa a alguns tópicos. Por exemplo, será crucial guar
 à quantidade de entradas num determinado dia. Para guardar informação deste tipo, serão utilizados arrays associativos. 
 Embora apenas seja requisitado que se liste os diferentes locais de saída, serão utilizados arrays associativos de 
 forma a guardar quantas vezes passou por cada um desses locais. Relativamente a cada dia, serão ainda guardados os 
-totais gastos e as durações totais de viagens(em arrays associativos) que, embora não seja um requisito, se considera informação importante.
+totais gastos, as durações totais de viagens e quais são os locais de entrada(em arrays associativos) que, embora não seja um 
+requisito, se considera informação importante.
 Acrescentando ainda aos extras já apresentados, armazena-se informação relativa ao valor despendido em parques e também em portagens. 
 Informação como o total gasto no mês não precisa de ser guardada em nenhuma estrutura de dados, bastando usar um float para o efeito.
 \section{Algoritmos}
 No início do programa, serão atribuidos todos os valores necessários a algumas variáveis que serão uteis para o corpo do programa.
 Por exemplo strings, inteiros e formatos para a função printf.
 É muito importante a definição de um \fs adequado para facilitar o processamento do ficheiro.\par
-O corpo do programa será na forma de condição e ação respetiva, como é típico usando GAWK. 
+O corpo do programa será na forma de condição e ação respetiva, como é típico usando GAWK.
+Sabendo em que campo começa a aparecer a informação do utilizador e em qual acaba, tirar-se-á partido disso para obter toda a 
+informação(Nome, nif, etc) de forma sistemática, com apenas um bloco de ação.
 Na maioria das condições, estão especificadas expressões regulares que um ou mais 'fields' da linha atual tem que satisfazer. 
-Sabendo que esse 'field' satisfez a expressão regular, guarda-se informação valiosa para o resultado final do programa. Uma das ações terá que ser apoiada por uma
+Sabendo que esse 'field' satisfez a expressão regular, guarda-se informação valiosa para o resultado final do programa. 
+Algumas das entradas são em parques ou não têm data de entrada(ou ambos), nesses casos o campo entrada não
+está preenchido, existirão variáveis para saber se é para adicionar entrada e saber se é o caso de parque(Adicionando o nome do 
+parque acedendo ao campo saída). Para todo este processo, é necessária uma variável que guarde o último dia de entrada pelo qual se passou.
+Como se pretende saber o gasto em parques e em portagens separadamente, é 
+fulcral que se guarde o último gasto adicionado ao total numa variável para que, chegando ao campo tipo, se adicione esse mesmo valor 
+ao array associativo que guarda essa informação(no índice do tipo em questao).
+Uma das ações terá que ser apoiada por uma
 função cujo objetivo será calcular a duração de uma viagem, recebendo como
 argumentos a hora de entrada e hora de saída. Esta função partirá do 
-princípio que, no máximo, uma viagem começa num dia e acaba no seguinte.\par
-Chegando à fase final de execução trata-se a informação obtida, de forma a apresentar os resultados em formato apelativo. Por exemplo, usando html com strings definidas no início e não só. Existirá, muito provavelmente, 
+princípio que, no máximo, uma viagem começa num dia e acaba no seguinte.
+\par
+Chegando à fase final de execução trata-se a informação obtida, de forma a apresentar os resultados em formato apelativo. Por exemplo, 
+usando html com strings definidas no início e não só. Existirá, muito provavelmente, 
 um ciclo para quase todos os arrays associativos de forma a apresentar a informação 
 armazenada no mesmo. Um destes ciclos, deverá juntar a quantidade de entradas num dia e o total gasto no mesmo.
 Depois de tratar toda a informação, no caso de ser usado html, coloca-se o final no ficheiro fechando o body e o html. 
@@ -195,7 +207,9 @@ Depois de tratar toda a informação, no caso de ser usado html, coloca-se o fin
 \chapter{Codificação e Testes} \label{ct}
 \section{Alternativas, Decisões e Problemas de Implementação}
 Uma das decisões tomadas logo no início da implementação foi usar html como tipo de ficheiro de 'output'.
-Este ficheiro utiliza estilos escritos em css. 
+Este ficheiro utiliza estilos escritos em css e também um script(em javascript) para 
+tornar possível o aparecimento de listas escondidas(clicando em cada dia onde 
+informa quantas entradas existiram, aparece a lista de locais). 
 Também é utilizada a font-awesome para juntar icons que refletem o conteúdo de cada linha apresentada. 
 O objetivo do uso destes recursos é tornar o conteúdo do ficheiro apelativo.
 Uma alternativa a esta abordagem seria utilizar o standard output para
@@ -204,16 +218,20 @@ excepto na complexidade de construção. Tendo apenas esse problema, que não
 causa muito transtorno, achou-se por bem optar pelo html.
 Como se pode verificar no bloco begin(linhas 3 a 24), foram criados vários formatos e strings para auxiliar na criação do ficheiro.\par
 Das decisões tomadas, a mais importante foi, talvez, decidir qual \fs usar. Depois de observar bem o ficheiro xml, chegou-se à 
-conclusão que seria oportuno utilizar como \fs a expressão regular na linha 4 do código: [\textless\textgreater]. Assim, é possível obter o que esta dentro de cada elemento xml apenas acedendo à posição 3. Isto facilita muito a obtenção de informação.
+conclusão que seria oportuno utilizar como \fs a expressão regular na linha 4 do código: [\textless\textgreater]. Assim, é possível obter 
+o que esta dentro de cada elemento xml apenas acedendo à posição 3. Isto facilita muito a obtenção de informação.
 Com outra abordagem, podia ter sido usado o \fs default, mas dessa
 forma seria necessário um tratamento muito mais complexo das strings
 em cada posição para retirar dados importantes. 
 Relativamente aos locais de saída, decidiu-se juntar uma referência que pesquisa o nome desse local no google maps e apresenta o resultado
 numa nova tab do browser utilizado para abrir o html gerado. \par
 Durante a implementação do programa, não houve nenhum problema que mereça 
-destaque. Os algoritmos utilizados são relativamente simples e as 
+grande destaque. Os algoritmos utilizados são relativamente simples e as 
 expressões regulares também. A expressão mais 'complexa' utilizada, foi a 
 que garante que a data de entrada seja no formato correto(removendo ocorrências de null). Esta expressão está presente na linha 57 do código.
+Para a soma de floats, foi necessário transformar as ',' lidas do ficheiro
+em '.', usando gsub(linhas 98 e 105). De outra forma, era lida apenas a parte inteira do número.
+
 
 
 \section{Testes realizados e Resultados}
@@ -235,15 +253,38 @@ viaverde.xml) e os respectivos resultados obtidos(em formato html):
 
 \includegraphics[scale=0.35]{maps.png}\par
 
+\subsection{Exemplo da lista que abre quando se clica numa data}
+
+\includegraphics[scale=0.35]{out5.png}\par
+
 \chapter{Conclusão} \label{concl}
-Neste projeto foi utilizado um ficheiro xml com informação correspondente ao extrato mensal emitido pela Via
-Verde para um dos seus utentes, para o qual seria necessário calcular o número de entradas em cada dia do mês, a lista dos locais de saída relativos a cada entrada, o total gasto no fim do mês e o total gasto em parques de estacionamento.\par 
+Foi possível, 
+através do uso da liguagem de programação AWK e do uso de ferramentas html, realizar com sucesso os 
+requisitos pedidos neste trabalho prático assim como demostrar outras funcionalidades importantes e úteis para a 
+recolha e apresentação de informação neste trabalho.
+Para além dos requisitos necessários, calcular o número de entradas do utente em cada dia do mês, obter a 
+lista de locais de saída utlizados durante o mês
+retirar o valor total pago no final do mês e o valor total relativo apenas ao estacionamento em parques, 
+foi possível apresentar mais informação detalhada, tais como
+o total gasto em cada dia, a duração total de viagens e visualização dos locais de saída num mapa para melhor orientação.\par
 
-Foi necessário guardar a informação relativa ao ficheiro, neste caso em arrays associativos, e recolher e guardar tal informação a partir de várias condições, relativas a expressões regulares  específicas. Para além disto é apresentado o algoritmo relativo à apresentação da informação guardada, num formato html, recorrendo ao uso de ciclos, relativos a cada array associativo, para retirar a informação destes. Para além disso foi necessário a escolha de um field separator lógico e mais opurtuno, que neste caso seria [<>], permitindo só a obtenção da informação necessária no ficheiro xml, na posição 3.\par
-
-Como se pode confirmar nos anteriores tópicos, foi decidido o uso do html como o ficheiro de apresentação, apesar de ser mais complexo do que usar o standard output, assim como a font-awesome para juntar icons relativos a cada linha para melhor compreensão e para apelar ao utilizador.\par
-
-Através do uso da liguagem de programação AWK, do uso de ferramentas html para criação de uma plataforma de apresentação de informação, de um modo conciso e apresentável, foi possível realizar com sucesso os requisitos pedidos neste trabalho prático assim como demostrar outras funcionalidades importantes e úteis para a recolha e apresentação de informação neste trabalho, assim como para o uso noutros casos semelhantes.
+Com o uso de expressões regulares GAWK foi possível encontrar a informação específica do ficheiro xml, logo possibilitando 
+retirar essa mesma e guardá-la em arrays associativos
+para posterior apresentação em formato html. Este foi utilizado como formato de apresentação visto que apresenta a informação 
+necessária num formato conciso e elegante, 
+apesar de ser mais complexo do que usar o standard output. Para melhorar a desposição da informação e simplicidade desta foi 
+utilizado a font-awesome visto que esta permitiria criar 
+icons relativos a cada linha para melhor compreensão e para apelar ao utilizador, permitindo uma maior fluidez na procura 
+dos conteúdos .\par
+O uso das expressões regulares através da linguagem de programação AWK e de ferramentas html permitiu, em termos de processamento 
+de texto e divulgação, gerar código simples e curto,
+de fácil compreensão e com a capacidade necessária para retirar, armazenar e apresentar informação importante e relativa ao projeto. 
+Com isto dito, existem ainda capacidades extra
+por explorar para continuar a desenvolver o projeto, tais como, a disponibilização de um trajeto feito pelo utente num determinado dia. 
+Logo apesar de completar os requisitos necessários
+com as capacidades da linguagem AWK, é possível encontrar novas maneiras de utilizar a informação disposta, de forma a proporcionar maior 
+utilidade ao utentes e gestores.
+   
 
 
 \appendix 

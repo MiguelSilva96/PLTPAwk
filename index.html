@@ -3,6 +3,7 @@
 <title> Via Verde </title>
 <link rel='stylesheet' href='css/styles.css'>
 <link rel='stylesheet' href='css/fa/css/font-awesome.css'>
+<script src='js/script.js'></script>
 <meta charset='utf-8'/> </head> <body>
 <div class='bg-4 title'><h1><i class='fa fa-road'> Via Verde </i></h1>
 <h2>Mês Emissão: Ago-2015</h2></div>
@@ -16,27 +17,86 @@
 <h2 class='bg-4'>Informação:</h2>
 <h4 class='bg-2'>Nº de entradas em cada dia do mês:</h4>
 <ul>
-<li><i class='fa fa-calendar'> <b>Dia 30-07-2015:</b> 3 (Gastou 8.45€)</i></li>
+<li onclick='openList("30-07-2015")'><a><i class='fa fa-calendar'> <b>Dia 30-07-2015:</b> 3 (Gastou 8.45€)</i></li>
+</a><ol id='30-07-2015'>
+<li> EN 205 PV</li>
+<li> Braga Sul</li>
+<li> PQ Av. Central</li>
+</ol>
 <h5 class='bg-3'><i class='fa fa-clock-o'> Tempo total em viagem: 129 minutos</i></h5>
-<li><i class='fa fa-calendar'> <b>Dia 18-08-2015:</b> 2 (Gastou 4.00€)</i></li>
+<li onclick='openList("18-08-2015")'><a><i class='fa fa-calendar'> <b>Dia 18-08-2015:</b> 2 (Gastou 4.00€)</i></li>
+</a><ol id='18-08-2015'>
+<li> Povoa N-S</li>
+<li> Angeiras S-N</li>
+</ol>
 <h5 class='bg-3'><i class='fa fa-clock-o'> Tempo total em viagem: 32 minutos</i></h5>
-<li><i class='fa fa-calendar'> <b>Dia 29-07-2015:</b> 2 (Gastou 5.20€)</i></li>
+<li onclick='openList("29-07-2015")'><a><i class='fa fa-calendar'> <b>Dia 29-07-2015:</b> 2 (Gastou 5.20€)</i></li>
+</a><ol id='29-07-2015'>
+<li> EN 205 PV</li>
+<li> Ferreiros</li>
+</ol>
 <h5 class='bg-3'><i class='fa fa-clock-o'> Tempo total em viagem: 24 minutos</i></h5>
-<li><i class='fa fa-calendar'> <b>Dia 11-08-2015:</b> 2 (Gastou 5.20€)</i></li>
+<li onclick='openList("11-08-2015")'><a><i class='fa fa-calendar'> <b>Dia 11-08-2015:</b> 2 (Gastou 5.20€)</i></li>
+</a><ol id='11-08-2015'>
+<li> EN 205 PV</li>
+<li> Ferreiros</li>
+</ol>
 <h5 class='bg-3'><i class='fa fa-clock-o'> Tempo total em viagem: 24 minutos</i></h5>
-<li><i class='fa fa-calendar'> <b>Dia 10-08-2015:</b> 7 (Gastou 7.85€)</i></li>
+<li onclick='openList("10-08-2015")'><a><i class='fa fa-calendar'> <b>Dia 10-08-2015:</b> 7 (Gastou 7.85€)</i></li>
+</a><ol id='10-08-2015'>
+<li> Braga Sul</li>
+<li> Ermesinde PV</li>
+<li> EN14 E/O</li>
+<li> Via Norte O/E</li>
+<li> Valongo</li>
+<li> Via Norte E/O</li>
+<li> Angeiras S-N</li>
+</ol>
 <h5 class='bg-3'><i class='fa fa-clock-o'> Tempo total em viagem: 44 minutos</i></h5>
-<li><i class='fa fa-calendar'> <b>Dia 26-07-2015:</b> 3 (Gastou 4.65€)</i></li>
+<li onclick='openList("26-07-2015")'><a><i class='fa fa-calendar'> <b>Dia 26-07-2015:</b> 3 (Gastou 4.65€)</i></li>
+</a><ol id='26-07-2015'>
+<li> Povoa N-S</li>
+<li> Aeroporto</li>
+<li> Angeiras S-N</li>
+</ol>
 <h5 class='bg-3'><i class='fa fa-clock-o'> Tempo total em viagem: 25 minutos</i></h5>
-<li><i class='fa fa-calendar'> <b>Dia 17-08-2015:</b> 4 (Gastou 5.30€)</i></li>
+<li onclick='openList("17-08-2015")'><a><i class='fa fa-calendar'> <b>Dia 17-08-2015:</b> 4 (Gastou 5.30€)</i></li>
+</a><ol id='17-08-2015'>
+<li> Povoa N-S</li>
+<li> Aeroporto</li>
+<li> Via Norte E/O</li>
+<li> Angeiras S-N</li>
+</ol>
 <h5 class='bg-3'><i class='fa fa-clock-o'> Tempo total em viagem: 26 minutos</i></h5>
-<li><i class='fa fa-calendar'> <b>Dia 06-08-2015:</b> 4 (Gastou 10.00€)</i></li>
+<li onclick='openList("06-08-2015")'><a><i class='fa fa-calendar'> <b>Dia 06-08-2015:</b> 4 (Gastou 10.00€)</i></li>
+</a><ol id='06-08-2015'>
+<li> Povoa N-S</li>
+<li> EN13 O/E</li>
+<li> Maia II</li>
+<li> PQ A Sa Carn.I</li>
+</ol>
 <h5 class='bg-3'><i class='fa fa-clock-o'> Tempo total em viagem: 104 minutos</i></h5>
-<li><i class='fa fa-calendar'> <b>Dia 13-08-2015:</b> 5 (Gastou 14.35€)</i></li>
+<li onclick='openList("13-08-2015")'><a><i class='fa fa-calendar'> <b>Dia 13-08-2015:</b> 5 (Gastou 14.35€)</i></li>
+</a><ol id='13-08-2015'>
+<li> Povoa N-S</li>
+<li> Maia PV</li>
+<li> Ferreiros</li>
+<li> EN 205 PV</li>
+<li> Ferreiros</li>
+</ol>
 <h5 class='bg-3'><i class='fa fa-clock-o'> Tempo total em viagem: 61 minutos</i></h5>
-<li><i class='fa fa-calendar'> <b>Dia 21-08-2015:</b> 4 (Gastou 10.40€)</i></li>
+<li onclick='openList("21-08-2015")'><a><i class='fa fa-calendar'> <b>Dia 21-08-2015:</b> 4 (Gastou 10.40€)</i></li>
+</a><ol id='21-08-2015'>
+<li> EN 205 PV</li>
+<li> Ferreiros</li>
+<li> EN 205 PV</li>
+<li> Ferreiros</li>
+</ol>
 <h5 class='bg-3'><i class='fa fa-clock-o'> Tempo total em viagem: 51 minutos</i></h5>
-<li><i class='fa fa-calendar'> <b>Dia 31-07-2015:</b> 1 (Gastou 2.00€)</i></li>
+<li onclick='openList("31-07-2015")'><a><i class='fa fa-calendar'> <b>Dia 31-07-2015:</b> 1 (Gastou 2.00€)</i></li>
+</a><ol id='31-07-2015'>
+<li> Angeiras S-N</li>
+</ol>
 <h5 class='bg-3'><i class='fa fa-clock-o'> Tempo total em viagem: 19 minutos</i></h5>
 </ul>
 <h4 class='bg-2'>Locais de saída:</h4>
